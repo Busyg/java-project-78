@@ -5,7 +5,7 @@ import java.util.Map;
 public class MapSchema extends BaseSchema<Map> {
     private boolean required = false;
     private int mapSize = -1;
-    public Map<String, BaseSchema> shapesMap;
+    public Map<String, BaseSchema<String>> shapesMap;
 
     public MapSchema required() {
         this.required = true;
@@ -17,7 +17,7 @@ public class MapSchema extends BaseSchema<Map> {
         return this;
     }
 
-    public MapSchema shape(Map<String, BaseSchema> shapes) {
+    public MapSchema shape(Map<String, BaseSchema<String>> shapes) {
         this.shapesMap  = shapes;
         return this;
     }
@@ -49,7 +49,7 @@ public class MapSchema extends BaseSchema<Map> {
             return false;
         }
         for (var e : shapesMap.entrySet()) {
-            if (!e.getValue().isValid(data.get(e.getKey()))) {
+            if (!e.getValue().isValid((String) data.get(e.getKey()))) {
                 return false;
             }
         }
