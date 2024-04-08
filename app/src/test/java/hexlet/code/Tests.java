@@ -66,7 +66,7 @@ public final class Tests {
         assertTrue(v.isValid(5));
         assertTrue(v.isValid(-2));
         v.positive();
-        assertFalse(v.isValid(null));
+        assertTrue(v.isValid(null));
         assertFalse(v.isValid(-2));
         assertTrue(v.isValid(2));
     }

@@ -39,7 +39,7 @@ public class NumberSchema extends BaseSchema<Integer> {
     }
 
     public boolean isPositive(Integer data) {
-        return data != null && data > 0;
+        return data == null || data > 0;
     }
 
     public boolean isInRange(Integer data) {
