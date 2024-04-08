@@ -1,27 +1,26 @@
-package hexlet.code;
+package hexlet.code.schemas;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
-public class StringSchema {
+public class StringSchema extends BaseSchema<String> {
     private boolean required = false;
     private int minLength = -1;
     private String contains = "";
 
-    public void required() {
-        this.setRequired(true);
+    public StringSchema required() {
+        this.required = true;
+        return this;
     }
 
-    public void minLength(int length) {
-        this.setMinLength(length);
+    public StringSchema minLength(int length) {
+        this.minLength = length;
+        return this;
     }
 
-    public void contains(String substring) {
-        this.setContains(substring);
+    public StringSchema contains(String substring) {
+        this.contains = substring;
+        return this;
     }
 
+    @Override
     public boolean isValid(String data) {
         if (required && isRequired(data)) {
             return false;
@@ -40,7 +39,7 @@ public class StringSchema {
     }
 
     public boolean isLongerThan(String data) {
-        return data.length() > minLength;
+        return data.length() > minLength - 1;
     }
 
     public boolean isContaining(String data) {

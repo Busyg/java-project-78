@@ -33,7 +33,3 @@ jacocoTestReport {
 application {
     mainClass = 'hexlet.code.App'
 }
-
-compileJava {
-    options.compilerArgs += ["-Aproject=${project.group}/${project.name}"]
-}
