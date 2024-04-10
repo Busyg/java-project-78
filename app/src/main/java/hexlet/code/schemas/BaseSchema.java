@@ -5,9 +5,9 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 public abstract class BaseSchema<T> {
-    private Map<String, Predicate<T>> predicateMap = new HashMap<String, Predicate<T>>();
+    private final Map<String, Predicate<T>> predicateMap = new HashMap<String, Predicate<T>>();
 
-    public boolean isValid(Object obj) {
+    public final boolean isValid(Object obj) {
         for (var e : predicateMap.entrySet()) {
             if (!e.getValue().test((T) obj)) {
                 return false;
@@ -16,7 +16,7 @@ public abstract class BaseSchema<T> {
         return true;
     }
 
-    public void addValidation(String validation, Predicate<T> predicate) {
+    public final void addValidation(String validation, Predicate<T> predicate) {
         predicateMap.put(validation, predicate);
     }
 }
