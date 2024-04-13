@@ -16,6 +16,9 @@ public abstract class BaseSchema<T> {
         return true;
     }
 
+    /**
+     * Check if value is null or empty string
+    */
     public BaseSchema<T> required() {
         addValidation("required", o -> o instanceof String ? o != null && !o.equals("") : o != null);
         return this;
