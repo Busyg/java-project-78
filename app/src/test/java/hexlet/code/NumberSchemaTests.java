@@ -16,23 +16,51 @@ public final class NumberSchemaTests {
     }
 
     @Test
-    void testNumberSchema() {
+    void testNumberSchemaRequired() {
         var schema = validator.number();
         assertTrue(schema.isValid(null));
         assertTrue(schema.isValid(-1));
         assertTrue(schema.isValid(0));
         assertTrue(schema.isValid(1));
+        schema.required();
+        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(20));
+        assertTrue(schema.isValid(-20));
+        assertTrue(schema.isValid(0));
+    }
+
+    @Test
+    void testNumberSchemaPositive() {
+        var schema = validator.number();
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid(-1));
         schema.positive();
         assertTrue(schema.isValid(null));
         assertTrue(schema.isValid(10));
         assertFalse(schema.isValid(-10));
         assertFalse(schema.isValid(0));
-        schema.required();
+    }
+
+    @Test
+    void testNumberSchemaRange() {
+        var schema = validator.number();
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid(100));
+        schema.range(-30, 40);
         assertFalse(schema.isValid(null));
-        assertTrue(schema.isValid(20));
-        assertFalse(schema.isValid(-20));
-        assertFalse(schema.isValid(0));
-        schema.range(30, 40);
+        assertTrue(schema.isValid(-30));
+        assertTrue(schema.isValid(40));
+        assertFalse(schema.isValid(-31));
+        assertFalse(schema.isValid(41));
+    }
+
+    @Test
+    void testNumberSchemaChained() {
+        var schema = validator.number();
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid(-100));
+        schema.required().positive().range(30, 40);
+        assertFalse(schema.isValid(null));
         assertTrue(schema.isValid(30));
         assertTrue(schema.isValid(40));
         assertFalse(schema.isValid(29));

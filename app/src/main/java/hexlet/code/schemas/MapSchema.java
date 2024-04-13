@@ -1,29 +1,28 @@
 package hexlet.code.schemas;
 
 import java.util.Map;
-import java.util.function.Predicate;
 
 public final class MapSchema extends BaseSchema<Map> {
 
-    public void required() {
-        Predicate<Map> isRequired = data -> data != null;
-        addValidation("required", isRequired);
+    public MapSchema required() {
+        super.required();
+        return this;
     }
 
-    public void sizeof(int size) {
-        Predicate<Map> isInSize = data -> (data.size() == size);
-        addValidation("sizeof", isInSize);
+    public MapSchema sizeof(int size) {
+        addValidation("sizeof", o -> (o != null && o.size() == size));
+        return this;
     }
 
-    public void shape(Map<String, BaseSchema<String>> schemasMap) {
-        Predicate<Map> isInShape = data -> {
+    public MapSchema shape(Map<String, BaseSchema<String>> schemasMap) {
+        addValidation("shape", o -> {
             for (var e : schemasMap.entrySet()) {
-                if (!e.getValue().isValid(data.get(e.getKey()))) {
+                if (!e.getValue().isValid(o.get(e.getKey()))) {
                     return false;
                 }
             }
             return true;
-        };
-        addValidation("shape", isInShape);
+        });
+        return this;
     }
 }

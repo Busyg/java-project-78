@@ -1,21 +1,19 @@
 package hexlet.code.schemas;
 
-import java.util.function.Predicate;
-
 public final class NumberSchema extends BaseSchema<Integer> {
 
-    public void required() {
-        Predicate<Integer> isRequired = data -> data != null;
-        addValidation("required", isRequired);
+    public NumberSchema required() {
+        super.required();
+        return this;
     }
 
-    public void positive() {
-        Predicate<Integer> isPositive = data -> (data == null || data > 0);
-        addValidation("positive", isPositive);
+    public NumberSchema positive() {
+        addValidation("positive", o -> (o == null || o > 0));
+        return this;
     }
 
-    public void range(int min, int max) {
-        Predicate<Integer> isInRange = data -> (data >= min && data <= max);
-        addValidation("range", isInRange);
+    public NumberSchema range(int min, int max) {
+        addValidation("range", o -> (o != null && o >= min && o <= max));
+        return this;
     }
 }

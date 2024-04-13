@@ -16,7 +16,12 @@ public abstract class BaseSchema<T> {
         return true;
     }
 
-    public final void addValidation(String validation, Predicate<T> predicate) {
+    public BaseSchema<T> required() {
+        addValidation("required", o -> o instanceof String ? o != null && !o.equals("") : o != null);
+        return this;
+    }
+
+    protected final void addValidation(String validation, Predicate<T> predicate) {
         predicateMap.put(validation, predicate);
     }
 }

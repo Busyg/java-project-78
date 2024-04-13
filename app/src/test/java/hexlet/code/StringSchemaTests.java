@@ -16,7 +16,7 @@ public final class StringSchemaTests {
     }
 
     @Test
-    void testStringSchema() {
+    void testStringSchemaRequired() {
         var schema = validator.string();
         assertTrue(schema.isValid(null));
         assertTrue(schema.isValid(""));
@@ -25,10 +25,37 @@ public final class StringSchemaTests {
         assertFalse(schema.isValid(null));
         assertFalse(schema.isValid(""));
         assertTrue(schema.isValid("Test"));
+    }
+
+    @Test
+    void testStringSchemaMinLength() {
+        var schema = validator.string();
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid("Test"));
         schema.minLength(5);
+        assertFalse(schema.isValid(null));
         assertTrue(schema.isValid("Test5"));
         assertFalse(schema.isValid("Test"));
+    }
+
+    @Test
+    void testStringSchemaContains() {
+        var schema = validator.string();
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid("Test"));
         schema.contains("Test5");
+        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid("Test5"));
+        assertFalse(schema.isValid("Test6"));
+    }
+
+    @Test
+    void testStringSchemaChained() {
+        var schema = validator.string();
+        assertTrue(schema.isValid(null));
+        assertTrue(schema.isValid("Test"));
+        schema.required().minLength(5).contains("Test5");
+        assertFalse(schema.isValid(null));
         assertTrue(schema.isValid("Test5"));
         assertFalse(schema.isValid("Test6"));
     }
