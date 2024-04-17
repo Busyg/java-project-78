@@ -13,7 +13,7 @@ public final class NumberSchema extends BaseSchema<Integer> {
     }
 
     public NumberSchema range(int min, int max) {
-        addValidation("range", o -> (o != null && o >= min && o <= max));
+        addValidation("range", o -> (o == null || (o >= min && o <= max)));
         return this;
     }
 }

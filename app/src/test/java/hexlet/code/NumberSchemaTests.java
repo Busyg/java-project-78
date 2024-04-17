@@ -47,7 +47,7 @@ public final class NumberSchemaTests {
         assertTrue(schema.isValid(null));
         assertTrue(schema.isValid(100));
         schema.range(-30, 40);
-        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(null));
         assertTrue(schema.isValid(-30));
         assertTrue(schema.isValid(40));
         assertFalse(schema.isValid(-31));

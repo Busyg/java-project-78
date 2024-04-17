@@ -33,7 +33,7 @@ public final class StringSchemaTests {
         assertTrue(schema.isValid(null));
         assertTrue(schema.isValid("Test"));
         schema.minLength(5);
-        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(null));
         assertTrue(schema.isValid("Test5"));
         assertFalse(schema.isValid("Test"));
     }
@@ -44,7 +44,7 @@ public final class StringSchemaTests {
         assertTrue(schema.isValid(null));
         assertTrue(schema.isValid("Test"));
         schema.contains("Test5");
-        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(null));
         assertTrue(schema.isValid("Test5"));
         assertFalse(schema.isValid("Test6"));
     }

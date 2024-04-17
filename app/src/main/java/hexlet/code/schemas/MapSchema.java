@@ -10,7 +10,7 @@ public final class MapSchema extends BaseSchema<Map> {
     }
 
     public MapSchema sizeof(int size) {
-        addValidation("sizeof", o -> (o != null && o.size() == size));
+        addValidation("sizeof", o -> (o == null || o.size() == size));
         return this;
     }
 

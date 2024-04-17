@@ -21,7 +21,7 @@ public abstract class BaseSchema<T> {
      * @return Schema
     */
     public BaseSchema<T> required() {
-        addValidation("required", o -> o instanceof String ? o != null && !o.equals("") : o != null);
+        addValidation("required", o -> o != null);
         return this;
     }
 

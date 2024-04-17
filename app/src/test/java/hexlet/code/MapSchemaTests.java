@@ -40,7 +40,7 @@ public final class MapSchemaTests {
         testMap.put("key1", "value1");
         assertTrue(schema.isValid(testMap));
         schema.sizeof(2);
-        assertFalse(schema.isValid(null));
+        assertTrue(schema.isValid(null));
         assertFalse(schema.isValid(testMap));
         testMap.put("key2", "value2");
         assertTrue(schema.isValid(testMap));
